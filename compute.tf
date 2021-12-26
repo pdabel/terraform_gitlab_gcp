@@ -18,6 +18,10 @@ resource "google_compute_instance" "gitlab_instance" {
     }
   }
 
+  metadata = {
+    ssh-keys = "${var.gce_ssh_user}:${file(var.gce_ssh_pub_key_file)}"
+  }
+
   metadata_startup_script = "EXTERNAL_URL=http://${trimsuffix(google_dns_record_set.dns.name, ".")} apt-get -y install gitlab-ee"
 
   network_interface {
