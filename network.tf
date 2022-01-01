@@ -17,8 +17,8 @@ resource "google_compute_subnetwork" "subnet" {
   }
 }
 
-resource "google_compute_firewall" "gitlab" {
-  name    = "gitlab-firewall"
+resource "google_compute_firewall" "gitlab_external_access" {
+  name    = "gitlab-external-access-firewall"
   network = google_compute_network.vpc_network.name
 
   allow {
@@ -34,6 +34,48 @@ resource "google_compute_firewall" "gitlab" {
     metadata = "INCLUDE_ALL_METADATA"
   }
 
-  source_ranges = [ "86.45.159.64/32" ]
+  source_ranges = var.source_ips
+  target_tags = ["gitlab"]
+}
+
+resource "google_compute_firewall" "runner_external_access" {
+  name    = "runner-external-access-firewall"
+  network = google_compute_network.vpc_network.name
+
+  allow {
+    protocol = "icmp"
+  }
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  log_config {
+    metadata = "INCLUDE_ALL_METADATA"
+  }
+
+  source_ranges = var.source_ips
+  target_tags = ["runners"]
+}
+
+resource "google_compute_firewall" "gitlab_runner_access" {
+  name    = "gitlab-runner-access-firewall"
+  network = google_compute_network.vpc_network.name
+
+  allow {
+    protocol = "icmp"
+  }
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+
+  log_config {
+    metadata = "INCLUDE_ALL_METADATA"
+  }
+
+  source_ranges = [var.subnet]
   target_tags = ["gitlab"]
 }

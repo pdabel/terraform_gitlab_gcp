@@ -1,0 +1,15 @@
+# docs
+https://docs.gitlab.com/ee/administration/environment_variables.html
+
+# LB
+https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_forwarding_rule
+
+# TLS
+https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_managed_ssl_certificate
+
+# Runners
+https://docs.gitlab.com/ee/administration/environment_variables.html
+random GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN
+https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance_template
+https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance_group_manager
+https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_autoscaler

@@ -3,6 +3,7 @@ variable "region" {
 }
 variable "project" {}
 variable "gitlab_image" {}
+variable "gitlab_runner_image" {}
 variable "dns_zone_name" {}
 variable "subnet" {}
 variable "source_ips" {
